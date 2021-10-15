@@ -2054,6 +2054,129 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/homeComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/homeComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      model: null
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -2097,7 +2220,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
     theme: {
       themes: {
         light: {
-          primary: '#EB8635',
+          primary: '#022F95',
           secondary: '#363636',
           accent: '#e3ecf5',
           error: '#FF5252',
@@ -2111,26 +2234,117 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
   el: '#app',
   data: function data() {
     return {
-      links: [{
+      accountSession: null,
+      session: [{
         id: 1,
-        name: 'Dashboard',
-        ruta: "/publicar"
+        name: 'Leandro Roberto',
+        username: 'zeldant',
+        img: 'https://scontent-bog1-1.xx.fbcdn.net/v/t1.6435-9/132643020_3498895473511893_9122167535447528552_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=09cbfe&_nc_eui2=AeE-vMxwOV-FQs1Bea8l69v_sXs3fZQ6ouixezd9lDqi6AwPN3G6PDSnp1PrXWvjCp0&_nc_ohc=9jN_5eIqGkcAX83oT5x&_nc_ht=scontent-bog1-1.xx&oh=4759ce7528d7194e141233a42b54b474&oe=618F6717',
+        info: null,
+        email: 'leandro@leandro.com',
+        status: 1
       }, {
         id: 2,
-        name: 'Messages',
-        ruta: "/publicar"
+        name: 'Estiven León',
+        username: 'estiven',
+        img: 'https://scontent-bog1-1.xx.fbcdn.net/v/t39.30808-6/243028378_1964494693714832_330270903006006381_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=e3f864&_nc_eui2=AeFbU7XFUhRMJaJlNyFfPdZ9vhUxWcGTXCG-FTFZwZNcIZZFAKfdr-KbzRJ4nDnxmc0&_nc_ohc=6MWNkcEIVeUAX9SSoFE&_nc_ht=scontent-bog1-1.xx&oh=b1d74c1a1117f42799f934bf8d1729a0&oe=616D776D',
+        info: null,
+        email: 'estiven@estiven.com',
+        status: 1
+      } // {
+      //     id: 3,
+      //     name: null,
+      //     username: null,
+      //     img: null,
+      //     info: null,
+      //     email: null,
+      //     status: null
+      // },
+      // {
+      //     id: 4,
+      //     name: null,
+      //     username: null,
+      //     img: null,
+      //     info: null,
+      //     email: null,
+      //     status: null
+      // },
+      // {
+      //     id: 5,
+      //     name: null,
+      //     username: null,
+      //     img: null,
+      //     info: null,
+      //     email: null,
+      //     status: null
+      // },
+      // {
+      //     id: 6,
+      //     name: null,
+      //     username: null,
+      //     img: null,
+      //     info: null,
+      //     email: null,
+      //     status: null
+      // },
+      // {
+      //     id: 7,
+      //     name: null,
+      //     username: null,
+      //     img: null,
+      //     info: null,
+      //     email: null,
+      //     status: null
+      // },
+      ],
+      links: [{
+        id: 1,
+        icon: "mdi-home-variant-outline",
+        name: 'Inicio',
+        ruta: "/"
+      }, {
+        id: 2,
+        icon: "mdi-account-group-outline",
+        name: 'Personas',
+        ruta: "/2"
       }, {
         id: 3,
-        name: 'Profile',
-        ruta: "/publicar"
+        icon: "mdi-chat-outline",
+        name: 'Mensajes',
+        ruta: "/3"
       }, {
         id: 4,
-        name: 'Updates',
-        ruta: "/publicar"
-      }]
+        icon: "mdi-clock-outline",
+        name: 'Recientes',
+        ruta: "/4"
+      }, {
+        id: 5,
+        icon: "mdi-flag-outline",
+        name: 'Fijados',
+        ruta: "/5"
+      }, {
+        id: 6,
+        icon: "mdi-cog-outline",
+        name: 'Configuración',
+        ruta: "/6"
+      }],
+      menuSelectAccount: false
     };
   },
-  methods: {}
+  created: function created() {
+    // alert()
+    var account = JSON.parse(localStorage.getItem("usuarioSession"));
+
+    if (account && account != null) {
+      this.accountSession = account;
+    }
+  },
+  methods: {
+    selectAccount: function selectAccount(account) {
+      localStorage.setItem("usuarioSession", JSON.stringify(account));
+      this.accountSession = account;
+    }
+  }
 });
 
 /***/ }),
@@ -38120,15 +38334,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _homeComponent_vue_vue_type_template_id_fd967750___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./homeComponent.vue?vue&type=template&id=fd967750& */ "./resources/js/components/pages/homeComponent.vue?vue&type=template&id=fd967750&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _homeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./homeComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/homeComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 ;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _homeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _homeComponent_vue_vue_type_template_id_fd967750___WEBPACK_IMPORTED_MODULE_0__.render,
   _homeComponent_vue_vue_type_template_id_fd967750___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -38142,6 +38358,22 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 if (false) { var api; }
 component.options.__file = "resources/js/components/pages/homeComponent.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/homeComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/pages/homeComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_homeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./homeComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/homeComponent.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_homeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -38180,30 +38412,300 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
+    { staticClass: "pa-0", attrs: { fluid: "", "fill-height": "" } },
     [
       _c(
         "v-row",
+        { staticStyle: { height: "100%" }, attrs: { "no-gutters": "" } },
         [
-          _c(
-            "v-col",
-            { attrs: { cols: "12", sm: "2" } },
-            [_c("v-sheet", { attrs: { rounded: "lg", "min-height": "268" } })],
-            1
-          ),
+          _c("v-col", { attrs: { cols: "12", sm: "12", md: "2" } }),
           _vm._v(" "),
           _c(
             "v-col",
-            { attrs: { cols: "12", sm: "8" } },
-            [_c("v-sheet", { attrs: { "min-height": "70vh", rounded: "lg" } })],
+            { attrs: { cols: "12", sm: "12", md: "8" } },
+            [
+              _vm.$root.accountSession
+                ? _c(
+                    "v-sheet",
+                    { staticClass: "mx-auto", attrs: { elevation: "0" } },
+                    [
+                      _c(
+                        "v-slide-group",
+                        {
+                          staticClass: "pa-4",
+                          attrs: {
+                            "active-class": "success",
+                            "show-arrows": ""
+                          },
+                          model: {
+                            value: _vm.model,
+                            callback: function($$v) {
+                              _vm.model = $$v
+                            },
+                            expression: "model"
+                          }
+                        },
+                        _vm._l(15, function(n, index) {
+                          return _c("v-slide-item", {
+                            key: index,
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "default",
+                                  fn: function(ref) {
+                                    var active = ref.active
+                                    var toggle = ref.toggle
+                                    return [
+                                      _c(
+                                        "v-card",
+                                        {
+                                          staticClass: "ma-4",
+                                          attrs: {
+                                            color: active
+                                              ? undefined
+                                              : "grey lighten-4",
+                                            height: "180",
+                                            width: "100"
+                                          },
+                                          on: { click: toggle }
+                                        },
+                                        [
+                                          index == 0
+                                            ? _c("v-img", {
+                                                attrs: {
+                                                  height: "120",
+                                                  src:
+                                                    _vm.$root.accountSession.img
+                                                }
+                                              })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "content-btn-history"
+                                            },
+                                            [
+                                              index == 0
+                                                ? _c(
+                                                    "v-btn",
+                                                    {
+                                                      staticClass:
+                                                        "primary btn-add-history",
+                                                      attrs: {
+                                                        dark: "",
+                                                        icon: ""
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("v-icon", [
+                                                        _vm._v(" mdi-plus ")
+                                                      ])
+                                                    ],
+                                                    1
+                                                  )
+                                                : _vm._e()
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          index == 0
+                                            ? _c(
+                                                "span",
+                                                {
+                                                  staticClass:
+                                                    "px-2 caption d-block text-center font-weight-bold",
+                                                  staticStyle: {
+                                                    bottom: "2px",
+                                                    position: "absolute"
+                                                  }
+                                                },
+                                                [_vm._v("Nueva Historia")]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-row",
+                                            {
+                                              staticClass: "fill-height",
+                                              attrs: {
+                                                align: "center",
+                                                justify: "center"
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "v-scale-transition",
+                                                [
+                                                  active
+                                                    ? _c("v-icon", {
+                                                        attrs: {
+                                                          color: "white",
+                                                          size: "48"
+                                                        },
+                                                        domProps: {
+                                                          textContent: _vm._s(
+                                                            "mdi-close-circle-outline"
+                                                          )
+                                                        }
+                                                      })
+                                                    : _vm._e()
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  }
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          })
+                        }),
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "v-card",
+                { attrs: { elevation: "0" } },
+                [
+                  _c(
+                    "v-card-title",
+                    [
+                      _c(
+                        "v-form",
+                        { staticStyle: { width: "100%" } },
+                        [
+                          _c(
+                            "v-list-item",
+                            [
+                              _c(
+                                "v-list-item-avatar",
+                                [
+                                  _c("v-img", {
+                                    attrs: { src: _vm.$root.accountSession.img }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-list-item-content",
+                                [
+                                  _c(
+                                    "v-list-item-title",
+                                    [
+                                      _c("v-textarea", {
+                                        attrs: {
+                                          "hide-details": "",
+                                          autofocus: "",
+                                          dense: "",
+                                          filled: "",
+                                          rounded: "",
+                                          placeholder: "Qué tienes en mente?",
+                                          rows: "3"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-item-subtitle",
+                                    { staticClass: "pt-2 d-flex" },
+                                    [
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "text-capitalize",
+                                          attrs: { rounded: "", text: "" }
+                                        },
+                                        [
+                                          _c(
+                                            "v-icon",
+                                            {
+                                              attrs: {
+                                                color: "primary",
+                                                left: ""
+                                              }
+                                            },
+                                            [_vm._v("mdi-camera")]
+                                          ),
+                                          _vm._v(" Foto")
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "text-capitalize",
+                                          attrs: { rounded: "", text: "" }
+                                        },
+                                        [
+                                          _c(
+                                            "v-icon",
+                                            {
+                                              attrs: {
+                                                color: "primary",
+                                                left: ""
+                                              }
+                                            },
+                                            [_vm._v("mdi-video")]
+                                          ),
+                                          _vm._v(" Video")
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-spacer"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass:
+                                            "primary text-capitalize",
+                                          attrs: {
+                                            depressed: "",
+                                            rounded: "",
+                                            dark: ""
+                                          }
+                                        },
+                                        [_vm._v("Publicar")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
             1
           ),
           _vm._v(" "),
-          _c(
-            "v-col",
-            { attrs: { cols: "12", sm: "2" } },
-            [_c("v-sheet", { attrs: { rounded: "lg", "min-height": "268" } })],
-            1
-          )
+          _c("v-col", { attrs: { cols: "12", sm: "12", md: "2" } })
         ],
         1
       )
@@ -99080,7 +99582,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_vue__;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\woshq\\\\OneDrive\\\\Documentos\\\\Proyectos\\\\Proyecto_Wondella"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Users\\\\woshq\\\\OneDrive\\\\Documentos\\\\Proyectos\\\\Proyecto_Wondella","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\User\\\\Documents\\\\Proyectos\\\\Prueba-Wondella"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Users\\\\User\\\\Documents\\\\Proyectos\\\\Prueba-Wondella","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 
