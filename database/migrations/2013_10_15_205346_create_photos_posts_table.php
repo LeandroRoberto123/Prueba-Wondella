@@ -18,6 +18,8 @@ class CreatePhotosPostsTable extends Migration
             $table->bigInteger("id_posts");
             $table->string('title_file', 255)->nullable();
             $table->text('name_file');
+            $table->text('type_file');
+            $table->text('route_file');
             $table->timestamps();
         });
     }
