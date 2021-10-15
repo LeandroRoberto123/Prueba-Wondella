@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +20,4 @@ Route::get('/', function () {
 Route::get('/publicar', function (){
     dd("dasd");
 });
+Route::post('/guardarPost', [PostController::class, 'guardarPost']);

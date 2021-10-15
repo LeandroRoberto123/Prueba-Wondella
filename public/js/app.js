@@ -2167,11 +2167,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      model: null
+      preview_img: [],
+      model: null,
+      description: null,
+      form_data: {
+        image_list: []
+      }
     };
+  },
+  methods: {
+    guardarPost: function guardarPost(id) {
+      var _this = this;
+
+      var params = {
+        key1: this.description,
+        key2: this.photo,
+        key3: this.video,
+        key4: id
+      };
+      axios.post("/guardarPost", params).then(function (res) {
+        _this.limpiarCampos();
+
+        console.log(res);
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    },
+    limpiarCampos: function limpiarCampos() {
+      this.description = null;
+    },
+    onFileChange: function onFileChange(event) {
+      var _this2 = this;
+
+      console.log(event);
+      var input = event.target;
+      var count = input.files.length;
+      var index = 0;
+
+      if (input.files) {
+        while (count--) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            _this2.preview_img.push(e.target.result);
+          };
+
+          this.form_data.image_list.push(input.files[index]);
+          reader.readAsDataURL(input.files[index]); // }
+
+          index++;
+        }
+      }
+    }
   }
 });
 
@@ -2251,16 +2313,15 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
         info: null,
         email: 'estiven@estiven.com',
         status: 1
+      }, {
+        id: 3,
+        name: 'Carlos Hueso',
+        username: 'hueso',
+        img: 'https://scontent-bog1-1.xx.fbcdn.net/v/t1.18169-9/11947406_10208193656585992_8261194682884251902_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_eui2=AeFxwt2SQGFtFfsf_PKGhcxEvQlQcbg--L69CVBxuD74vmpY7x6NfmuZYwSf73dCsZmh5MZhiiDiUunns6xkWM6m&_nc_ohc=3XpAM3zWpk8AX94Mriz&_nc_ht=scontent-bog1-1.xx&oh=8ab6ff99a13c79e06fed96c9fa2b5b0e&oe=618CD87A',
+        info: null,
+        email: 'hueso@hueso.com',
+        status: 1
       } // {
-      //     id: 3,
-      //     name: null,
-      //     username: null,
-      //     img: null,
-      //     info: null,
-      //     email: null,
-      //     status: null
-      // },
-      // {
       //     id: 4,
       //     name: null,
       //     username: null,
@@ -38614,6 +38675,13 @@ var render = function() {
                                           rounded: "",
                                           placeholder: "Qué tienes en mente?",
                                           rows: "3"
+                                        },
+                                        model: {
+                                          value: _vm.description,
+                                          callback: function($$v) {
+                                            _vm.description = $$v
+                                          },
+                                          expression: "description"
                                         }
                                       })
                                     ],
@@ -38624,11 +38692,30 @@ var render = function() {
                                     "v-list-item-subtitle",
                                     { staticClass: "pt-2 d-flex" },
                                     [
+                                      _c("input", {
+                                        ref: "file",
+                                        staticStyle: { display: "none" },
+                                        attrs: {
+                                          type: "file",
+                                          multiple: "",
+                                          id: "fileInput",
+                                          accept:
+                                            "image/png, image/jpeg, image/gif",
+                                          maxlength: "3"
+                                        },
+                                        on: { change: _vm.onFileChange }
+                                      }),
+                                      _vm._v(" "),
                                       _c(
                                         "v-btn",
                                         {
                                           staticClass: "text-capitalize",
-                                          attrs: { rounded: "", text: "" }
+                                          attrs: {
+                                            onclick:
+                                              "document.getElementById('fileInput').click()",
+                                            rounded: "",
+                                            text: ""
+                                          }
                                         },
                                         [
                                           _c(
@@ -38679,6 +38766,13 @@ var render = function() {
                                             depressed: "",
                                             rounded: "",
                                             dark: ""
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.guardarPost(
+                                                _vm.$root.accountSession.id
+                                              )
+                                            }
                                           }
                                         },
                                         [_vm._v("Publicar")]
@@ -99582,7 +99676,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_vue__;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\User\\\\Documents\\\\Proyectos\\\\Prueba-Wondella"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Users\\\\User\\\\Documents\\\\Proyectos\\\\Prueba-Wondella","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\woshq\\\\OneDrive\\\\Documentos\\\\Proyectos\\\\Proyecto_Wondella"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Users\\\\woshq\\\\OneDrive\\\\Documentos\\\\Proyectos\\\\Proyecto_Wondella","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 

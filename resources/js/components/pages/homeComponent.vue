@@ -79,14 +79,26 @@
                       rounded
                       placeholder="Qué tienes en mente?"
                       rows="3"
+                      v-model="description"
                     >
                     </v-textarea
                   ></v-list-item-title>
                   <v-list-item-subtitle class="pt-2 d-flex">
-                    <v-btn rounded text class="text-capitalize"> <v-icon color="primary" left>mdi-camera</v-icon> Foto</v-btn>
+                      <input
+              type="file"
+              multiple
+              id="fileInput"
+              ref="file"
+              accept="image/png, image/jpeg, image/gif"
+              maxlength="3"
+              style="display: none"
+              @change="onFileChange"
+            />
+                    <v-btn onclick="document.getElementById('fileInput').click()" rounded text class="text-capitalize" >
+                       <v-icon color="primary" left>mdi-camera</v-icon> Foto</v-btn>
                     <v-btn rounded text class="text-capitalize"> <v-icon color="primary" left>mdi-video</v-icon> Video</v-btn>
                     <v-spacer></v-spacer>
-                    <v-btn depressed rounded dark class="primary text-capitalize">Publicar</v-btn>
+                    <v-btn depressed rounded dark class="primary text-capitalize" @click="guardarPost($root.accountSession.id)">Publicar</v-btn>
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -103,7 +115,56 @@
 <script>
 export default {
   data: () => ({
+    preview_img: [],
     model: null,
+    description: null,
+    form_data: {
+      image_list: [],
+      }
   }),
+  methods: {
+    guardarPost(id){
+      var params = {
+        key1 : this.description,
+        key2 : this.photo,
+        key3 : this.video,
+        key4 : id,
+      }
+      axios.post("/guardarPost",params)
+      .then(res => {
+        this.limpiarCampos();
+        console.log(res)
+      })
+      .catch(err => {
+        console.error(err); 
+      })
+    },
+    limpiarCampos(){
+      this.description = null;
+    },
+   onFileChange(event) {
+     console.log(event);
+      var input = event.target;
+      var count = input.files.length;
+      var index = 0;
+
+      if (input.files) {
+        while (count--) {
+
+          var reader = new FileReader();
+
+          reader.onload = (e) => {
+            this.preview_img.push(e.target.result);
+          };
+
+          this.form_data.image_list.push(input.files[index]);
+
+          reader.readAsDataURL(input.files[index]);
+          // }
+          index++;
+        }
+      }
+    },
+  },
 };
 </script>

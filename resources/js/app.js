@@ -73,15 +73,15 @@ const app = new Vue({
                 email: 'estiven@estiven.com',
                 status: 1
             },
-            // {
-            //     id: 3,
-            //     name: null,
-            //     username: null,
-            //     img: null,
-            //     info: null,
-            //     email: null,
-            //     status: null
-            // },
+            {
+                id: 3,
+                name: 'Carlos Hueso',
+                username: 'hueso',
+                img: 'https://scontent-bog1-1.xx.fbcdn.net/v/t1.18169-9/11947406_10208193656585992_8261194682884251902_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_eui2=AeFxwt2SQGFtFfsf_PKGhcxEvQlQcbg--L69CVBxuD74vmpY7x6NfmuZYwSf73dCsZmh5MZhiiDiUunns6xkWM6m&_nc_ohc=3XpAM3zWpk8AX94Mriz&_nc_ht=scontent-bog1-1.xx&oh=8ab6ff99a13c79e06fed96c9fa2b5b0e&oe=618CD87A',
+                info: null,
+                email: 'hueso@hueso.com',
+                status: 1
+            },
             // {
             //     id: 4,
             //     name: null,
