@@ -2179,14 +2179,113 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       preview_img: [],
+      preview_video: [],
       model: null,
-      description: null,
       form_data: {
-        image_list: []
+        image_list: [],
+        video_list: [],
+        description: null
       }
     };
   },
@@ -2194,13 +2293,26 @@ __webpack_require__.r(__webpack_exports__);
     guardarPost: function guardarPost(id) {
       var _this = this;
 
-      var params = {
-        key1: this.description,
-        key2: this.photo,
-        key3: this.video,
-        key4: id
-      };
-      axios.post("/guardarPost", params).then(function (res) {
+      var formData = new FormData();
+
+      if (this.form_data.image_list.length > 0) {
+        this.form_data.image_list.forEach(function (file) {
+          formData.append("img[]", file);
+        });
+      }
+
+      if (this.form_data.video_list.length > 0) {
+        this.form_data.video_list.forEach(function (file) {
+          formData.append("video[]", file);
+        });
+      }
+
+      formData.append("description", this.form_data.description);
+      axios.post("/guardarPost", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }).then(function (res) {
         _this.limpiarCampos();
 
         console.log(res);
@@ -2208,13 +2320,11 @@ __webpack_require__.r(__webpack_exports__);
         console.error(err);
       });
     },
-    limpiarCampos: function limpiarCampos() {
-      this.description = null;
+    limpiarCampos: function limpiarCampos() {// this.description = null;
     },
-    onFileChange: function onFileChange(event) {
+    onFileChangeImg: function onFileChangeImg(event) {
       var _this2 = this;
 
-      console.log(event);
       var input = event.target;
       var count = input.files.length;
       var index = 0;
@@ -2233,6 +2343,40 @@ __webpack_require__.r(__webpack_exports__);
           index++;
         }
       }
+
+      document.getElementById("fileInputImg").value = "";
+    },
+    onFileChangeVideo: function onFileChangeVideo(event) {
+      var _this3 = this;
+
+      var input = event.target;
+      var count = input.files.length;
+      var index = 0;
+
+      if (input.files) {
+        while (count--) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            _this3.preview_video.push(e.target.result);
+          };
+
+          this.form_data.video_list.push(input.files[index]);
+          reader.readAsDataURL(input.files[index]); // }
+
+          index++;
+        }
+      }
+
+      document.getElementById("fileInputVideo").value = "";
+    },
+    deleteFileImg: function deleteFileImg(index) {
+      this.preview_img.splice(index, 1);
+      this.form_data.image_list.splice(index, 1);
+    },
+    deleteFileVideo: function deleteFileVideo(index) {
+      this.preview_video.splice(index, 1);
+      this.form_data.video_list.splice(index, 1);
     }
   }
 });
@@ -38666,6 +38810,230 @@ var render = function() {
                                   _c(
                                     "v-list-item-title",
                                     [
+                                      _vm.preview_img.length > 0
+                                        ? _c(
+                                            "v-slide-group",
+                                            {
+                                              staticClass: "px-0 py-2",
+                                              attrs: {
+                                                "active-class": "success",
+                                                "show-arrows": ""
+                                              }
+                                            },
+                                            _vm._l(_vm.preview_img, function(
+                                              img,
+                                              indexImg
+                                            ) {
+                                              return _c(
+                                                "v-slide-item",
+                                                { key: indexImg },
+                                                [
+                                                  _c("v-hover", {
+                                                    scopedSlots: _vm._u(
+                                                      [
+                                                        {
+                                                          key: "default",
+                                                          fn: function(ref) {
+                                                            var hover =
+                                                              ref.hover
+                                                            return [
+                                                              _c(
+                                                                "v-card",
+                                                                {
+                                                                  staticClass:
+                                                                    "mx-2 d-flex",
+                                                                  attrs: {
+                                                                    outlined:
+                                                                      "",
+                                                                    elevation:
+                                                                      "0"
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _c("v-img", {
+                                                                    attrs: {
+                                                                      gradient: hover
+                                                                        ? "to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+                                                                        : null,
+                                                                      width:
+                                                                        "60",
+                                                                      src: img
+                                                                    }
+                                                                  }),
+                                                                  _vm._v(" "),
+                                                                  hover
+                                                                    ? _c(
+                                                                        "v-icon",
+                                                                        {
+                                                                          staticStyle: {
+                                                                            position:
+                                                                              "absolute",
+                                                                            top:
+                                                                              "0",
+                                                                            right:
+                                                                              "0"
+                                                                          },
+                                                                          attrs: {
+                                                                            color:
+                                                                              "red",
+                                                                            size:
+                                                                              "18"
+                                                                          },
+                                                                          on: {
+                                                                            click: function(
+                                                                              $event
+                                                                            ) {
+                                                                              return _vm.deleteFileImg(
+                                                                                indexImg
+                                                                              )
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        [
+                                                                          _vm._v(
+                                                                            "\n                            mdi-delete-circle\n                          "
+                                                                          )
+                                                                        ]
+                                                                      )
+                                                                    : _vm._e()
+                                                                ],
+                                                                1
+                                                              )
+                                                            ]
+                                                          }
+                                                        }
+                                                      ],
+                                                      null,
+                                                      true
+                                                    )
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            }),
+                                            1
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.preview_video.length > 0
+                                        ? _c(
+                                            "v-slide-group",
+                                            {
+                                              staticClass: "px-0 py-2",
+                                              attrs: {
+                                                "active-class": "success",
+                                                "show-arrows": ""
+                                              }
+                                            },
+                                            _vm._l(_vm.preview_video, function(
+                                              video,
+                                              indexVideo
+                                            ) {
+                                              return _c(
+                                                "v-slide-item",
+                                                { key: indexVideo },
+                                                [
+                                                  _c("v-hover", {
+                                                    scopedSlots: _vm._u(
+                                                      [
+                                                        {
+                                                          key: "default",
+                                                          fn: function(ref) {
+                                                            var hover =
+                                                              ref.hover
+                                                            return [
+                                                              _c(
+                                                                "v-card",
+                                                                {
+                                                                  staticClass:
+                                                                    "mx-2 d-flex",
+                                                                  attrs: {
+                                                                    outlined:
+                                                                      "",
+                                                                    elevation:
+                                                                      "0"
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _c(
+                                                                    "video",
+                                                                    {
+                                                                      attrs: {
+                                                                        width:
+                                                                          "250",
+                                                                        controls:
+                                                                          ""
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _c(
+                                                                        "source",
+                                                                        {
+                                                                          attrs: {
+                                                                            src: video
+                                                                          }
+                                                                        }
+                                                                      ),
+                                                                      _vm._v(
+                                                                        "\n                            Your browser does not support HTML5 video.\n                          "
+                                                                      )
+                                                                    ]
+                                                                  ),
+                                                                  _vm._v(" "),
+                                                                  hover
+                                                                    ? _c(
+                                                                        "v-icon",
+                                                                        {
+                                                                          staticStyle: {
+                                                                            position:
+                                                                              "absolute",
+                                                                            top:
+                                                                              "0",
+                                                                            right:
+                                                                              "0"
+                                                                          },
+                                                                          attrs: {
+                                                                            color:
+                                                                              "red",
+                                                                            size:
+                                                                              "18"
+                                                                          },
+                                                                          on: {
+                                                                            click: function(
+                                                                              $event
+                                                                            ) {
+                                                                              return _vm.deleteFileVideo(
+                                                                                indexVideo
+                                                                              )
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        [
+                                                                          _vm._v(
+                                                                            "\n                            mdi-delete-circle\n                          "
+                                                                          )
+                                                                        ]
+                                                                      )
+                                                                    : _vm._e()
+                                                                ],
+                                                                1
+                                                              )
+                                                            ]
+                                                          }
+                                                        }
+                                                      ],
+                                                      null,
+                                                      true
+                                                    )
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            }),
+                                            1
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
                                       _c("v-textarea", {
                                         attrs: {
                                           "hide-details": "",
@@ -38677,11 +39045,15 @@ var render = function() {
                                           rows: "3"
                                         },
                                         model: {
-                                          value: _vm.description,
+                                          value: _vm.form_data.description,
                                           callback: function($$v) {
-                                            _vm.description = $$v
+                                            _vm.$set(
+                                              _vm.form_data,
+                                              "description",
+                                              $$v
+                                            )
                                           },
-                                          expression: "description"
+                                          expression: "form_data.description"
                                         }
                                       })
                                     ],
@@ -38693,17 +39065,30 @@ var render = function() {
                                     { staticClass: "pt-2 d-flex" },
                                     [
                                       _c("input", {
-                                        ref: "file",
+                                        ref: "fileImg",
                                         staticStyle: { display: "none" },
                                         attrs: {
                                           type: "file",
                                           multiple: "",
-                                          id: "fileInput",
+                                          id: "fileInputImg",
                                           accept:
                                             "image/png, image/jpeg, image/gif",
                                           maxlength: "3"
                                         },
-                                        on: { change: _vm.onFileChange }
+                                        on: { change: _vm.onFileChangeImg }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        ref: "fileVideo",
+                                        staticStyle: { display: "none" },
+                                        attrs: {
+                                          type: "file",
+                                          multiple: "",
+                                          id: "fileInputVideo",
+                                          accept: "video/mp4",
+                                          maxlength: "3"
+                                        },
+                                        on: { change: _vm.onFileChangeVideo }
                                       }),
                                       _vm._v(" "),
                                       _c(
@@ -38712,7 +39097,7 @@ var render = function() {
                                           staticClass: "text-capitalize",
                                           attrs: {
                                             onclick:
-                                              "document.getElementById('fileInput').click()",
+                                              "document.getElementById('fileInputImg').click()",
                                             rounded: "",
                                             text: ""
                                           }
@@ -38728,7 +39113,7 @@ var render = function() {
                                             },
                                             [_vm._v("mdi-camera")]
                                           ),
-                                          _vm._v(" Foto")
+                                          _vm._v("\n                    Foto")
                                         ],
                                         1
                                       ),
@@ -38737,7 +39122,12 @@ var render = function() {
                                         "v-btn",
                                         {
                                           staticClass: "text-capitalize",
-                                          attrs: { rounded: "", text: "" }
+                                          attrs: {
+                                            onclick:
+                                              "document.getElementById('fileInputVideo').click()",
+                                            rounded: "",
+                                            text: ""
+                                          }
                                         },
                                         [
                                           _c(
@@ -38750,7 +39140,7 @@ var render = function() {
                                             },
                                             [_vm._v("mdi-video")]
                                           ),
-                                          _vm._v(" Video")
+                                          _vm._v("\n                    Video")
                                         ],
                                         1
                                       ),
@@ -99676,7 +100066,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_vue__;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\woshq\\\\OneDrive\\\\Documentos\\\\Proyectos\\\\Proyecto_Wondella"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Users\\\\woshq\\\\OneDrive\\\\Documentos\\\\Proyectos\\\\Proyecto_Wondella","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\User\\\\Documents\\\\Proyectos\\\\Prueba-Wondella"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Users\\\\User\\\\Documents\\\\Proyectos\\\\Prueba-Wondella","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 

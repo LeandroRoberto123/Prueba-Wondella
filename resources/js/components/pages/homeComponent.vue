@@ -71,6 +71,69 @@
 
                 <v-list-item-content>
                   <v-list-item-title>
+                    <v-slide-group
+                      class="px-0 py-2"
+                      v-if="preview_img.length > 0"
+                      active-class="success"
+                      show-arrows
+                    >
+                      <v-slide-item
+                        v-for="(img, indexImg) in preview_img"
+                        :key="indexImg"
+                      >
+                        <v-hover v-slot="{ hover }">
+                          <v-card outlined elevation="0" class="mx-2 d-flex">
+                            <v-img
+                              :gradient="
+                                hover
+                                  ? 'to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)'
+                                  : null
+                              "
+                              width="60"
+                              :src="img"
+                            ></v-img>
+                            <v-icon
+                              @click="deleteFileImg(indexImg)"
+                              color="red"
+                              size="18"
+                              style="position: absolute; top: 0; right: 0"
+                              v-if="hover"
+                            >
+                              mdi-delete-circle
+                            </v-icon>
+                          </v-card>
+                        </v-hover>
+                      </v-slide-item>
+                    </v-slide-group>
+                    <v-slide-group
+                      class="px-0 py-2"
+                      v-if="preview_video.length > 0"
+                      active-class="success"
+                      show-arrows
+                    >
+                      <v-slide-item
+                        v-for="(video, indexVideo) in preview_video"
+                        :key="indexVideo"
+                      >
+                        <v-hover v-slot="{ hover }">
+                          <v-card outlined elevation="0" class="mx-2 d-flex">
+                            <video width="250" controls>
+                              <source :src="video" />
+                              Your browser does not support HTML5 video.
+                            </video>
+                            <v-icon
+                              @click="deleteFileVideo(indexVideo)"
+                              color="red"
+                              size="18"
+                              style="position: absolute; top: 0; right: 0"
+                              v-if="hover"
+                            >
+                              mdi-delete-circle
+                            </v-icon>
+                          </v-card>
+                        </v-hover>
+                      </v-slide-item>
+                    </v-slide-group>
                     <v-textarea
                       hide-details
                       autofocus
@@ -79,31 +142,65 @@
                       rounded
                       placeholder="Qué tienes en mente?"
                       rows="3"
-                      v-model="description"
+                      v-model="form_data.description"
                     >
                     </v-textarea
                   ></v-list-item-title>
                   <v-list-item-subtitle class="pt-2 d-flex">
-                      <input
-              type="file"
-              multiple
-              id="fileInput"
-              ref="file"
-              accept="image/png, image/jpeg, image/gif"
-              maxlength="3"
-              style="display: none"
-              @change="onFileChange"
-            />
-                    <v-btn onclick="document.getElementById('fileInput').click()" rounded text class="text-capitalize" >
-                       <v-icon color="primary" left>mdi-camera</v-icon> Foto</v-btn>
-                    <v-btn rounded text class="text-capitalize"> <v-icon color="primary" left>mdi-video</v-icon> Video</v-btn>
+                    <input
+                      type="file"
+                      multiple
+                      id="fileInputImg"
+                      ref="fileImg"
+                      accept="image/png, image/jpeg, image/gif"
+                      maxlength="3"
+                      style="display: none"
+                      @change="onFileChangeImg"
+                    />
+                    <input
+                      type="file"
+                      multiple
+                      id="fileInputVideo"
+                      accept="video/mp4"
+                      ref="fileVideo"
+                      maxlength="3"
+                      style="display: none"
+                      @change="onFileChangeVideo"
+                    />
+                    <v-btn
+                      onclick="document.getElementById('fileInputImg').click()"
+                      rounded
+                      text
+                      class="text-capitalize"
+                    >
+                      <v-icon color="primary" left>mdi-camera</v-icon>
+                      Foto</v-btn
+                    >
+                    <v-btn
+                      onclick="document.getElementById('fileInputVideo').click()"
+                      rounded
+                      text
+                      class="text-capitalize"
+                    >
+                      <v-icon color="primary" left>mdi-video</v-icon>
+                      Video</v-btn
+                    >
                     <v-spacer></v-spacer>
-                    <v-btn depressed rounded dark class="primary text-capitalize" @click="guardarPost($root.accountSession.id)">Publicar</v-btn>
+                    <v-btn
+                      depressed
+                      rounded
+                      dark
+                      class="primary text-capitalize"
+                      @click="guardarPost($root.accountSession.id)"
+                      >Publicar</v-btn
+                    >
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
             </v-form>
           </v-card-title>
+
+          <!-- {{ preview_img}} -->
         </v-card>
       </v-col>
 
@@ -114,43 +211,59 @@
 
 <script>
 export default {
-  data: () => ({
-    preview_img: [],
-    model: null,
-    description: null,
-    form_data: {
-      image_list: [],
-      }
-  }),
+  data() {
+    return {
+      preview_img: [],
+      preview_video: [],
+      model: null,
+
+      form_data: {
+        image_list: [],
+        video_list: [],
+        description: null,
+      },
+    };
+  },
+
   methods: {
-    guardarPost(id){
-      var params = {
-        key1 : this.description,
-        key2 : this.photo,
-        key3 : this.video,
-        key4 : id,
+    guardarPost(id) {
+      let formData = new FormData();
+      if (this.form_data.image_list.length > 0) {
+        this.form_data.image_list.forEach((file) => {
+          formData.append("img[]", file);
+        });
       }
-      axios.post("/guardarPost",params)
-      .then(res => {
-        this.limpiarCampos();
-        console.log(res)
-      })
-      .catch(err => {
-        console.error(err); 
-      })
+      if (this.form_data.video_list.length > 0) {
+        this.form_data.video_list.forEach((file) => {
+          formData.append("video[]", file);
+        });
+      }
+      formData.append("description", this.form_data.description);
+
+      axios
+        .post("/guardarPost", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          this.limpiarCampos();
+          console.log(res);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
-    limpiarCampos(){
-      this.description = null;
+    limpiarCampos() {
+      // this.description = null;
     },
-   onFileChange(event) {
-     console.log(event);
+    onFileChangeImg(event) {
       var input = event.target;
       var count = input.files.length;
       var index = 0;
 
       if (input.files) {
         while (count--) {
-
           var reader = new FileReader();
 
           reader.onload = (e) => {
@@ -164,6 +277,37 @@ export default {
           index++;
         }
       }
+      document.getElementById("fileInputImg").value = "";
+    },
+    onFileChangeVideo(event) {
+      var input = event.target;
+      var count = input.files.length;
+      var index = 0;
+
+      if (input.files) {
+        while (count--) {
+          var reader = new FileReader();
+
+          reader.onload = (e) => {
+            this.preview_video.push(e.target.result);
+          };
+
+          this.form_data.video_list.push(input.files[index]);
+
+          reader.readAsDataURL(input.files[index]);
+          // }
+          index++;
+        }
+      }
+      document.getElementById("fileInputVideo").value = "";
+    },
+    deleteFileImg(index) {
+      this.preview_img.splice(index, 1);
+      this.form_data.image_list.splice(index, 1);
+    },
+    deleteFileVideo(index) {
+      this.preview_video.splice(index, 1);
+      this.form_data.video_list.splice(index, 1);
     },
   },
 };
