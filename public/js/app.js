@@ -2366,11 +2366,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      loadingSave: false,
       dialogImagen: false,
-      imagenSrc: '',
+      imagenSrc: null,
       items_post: [],
       preview_img: [],
       preview_video: [],
@@ -2400,6 +2411,7 @@ __webpack_require__.r(__webpack_exports__);
     guardarPost: function guardarPost(id) {
       var _this2 = this;
 
+      this.loadingSave = true;
       var formData = new FormData();
 
       if (this.form_data.image_list.length > 0) {
@@ -2421,14 +2433,24 @@ __webpack_require__.r(__webpack_exports__);
           "Content-Type": "multipart/form-data"
         }
       }).then(function (res) {
-        _this2.limpiarCampos();
+        _this2.limpiarCampos(); // console.log(res);
 
-        console.log(res);
+
+        _this2.loadingSave = false;
+
+        _this2.mostrarPost();
       })["catch"](function (err) {
         console.error(err);
+        _this2.loadingSave = false;
       });
     },
-    limpiarCampos: function limpiarCampos() {// this.description = null;
+    limpiarCampos: function limpiarCampos() {
+      // this.description = null;}
+      this.form_data.image_list = [];
+      this.form_data.video_list = [];
+      this.form_data.description = null;
+      this.preview_img = [];
+      this.preview_video = [];
     },
     onFileChangeImg: function onFileChangeImg(event) {
       var _this3 = this;
@@ -39283,6 +39305,8 @@ var render = function() {
                                           staticClass:
                                             "primary text-capitalize",
                                           attrs: {
+                                            disabled: _vm.loadingSave,
+                                            loading: _vm.loadingSave,
                                             depressed: "",
                                             rounded: "",
                                             dark: ""

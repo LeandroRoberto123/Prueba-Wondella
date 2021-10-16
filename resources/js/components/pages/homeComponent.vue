@@ -187,6 +187,8 @@
                     >
                     <v-spacer></v-spacer>
                     <v-btn
+                      :disabled="loadingSave"
+                      :loading="loadingSave"
                       depressed
                       rounded
                       dark
@@ -286,13 +288,21 @@
     </v-row>
     <v-dialog
       v-model="dialogImagen"
-      persistent 
+      persistent
       max-width="900px"
       transition="dialog-transition"
     >
       <v-img :src="imagenSrc">
-        <v-btn @click="dialogImagen = false; imagenSrc = null" icon class="grey darken-2 ma-1" dark> 
-        <v-icon>mdi-close</v-icon>  
+        <v-btn
+          @click="
+            dialogImagen = false;
+            imagenSrc = null;
+          "
+          icon
+          class="grey darken-2 ma-1"
+          dark
+        >
+          <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-img>
     </v-dialog>
@@ -303,13 +313,13 @@
 export default {
   data() {
     return {
+      loadingSave: false,
       dialogImagen: false,
-      imagenSrc: '',
+      imagenSrc: null,
       items_post: [],
       preview_img: [],
       preview_video: [],
       model: null,
-
       form_data: {
         image_list: [],
         video_list: [],
@@ -334,6 +344,7 @@ export default {
         });
     },
     guardarPost(id) {
+      this.loadingSave = true;
       let formData = new FormData();
       if (this.form_data.image_list.length > 0) {
         this.form_data.image_list.forEach((file) => {
@@ -356,14 +367,22 @@ export default {
         })
         .then((res) => {
           this.limpiarCampos();
-          console.log(res);
+          // console.log(res);
+          this.loadingSave = false;
+          this.mostrarPost();
         })
         .catch((err) => {
           console.error(err);
+          this.loadingSave = false;
         });
     },
     limpiarCampos() {
-      // this.description = null;
+      // this.description = null;}
+      this.form_data.image_list = [];
+      this.form_data.video_list = [];
+      this.form_data.description = null;
+      this.preview_img = [];
+      this.preview_video = [];
     },
     onFileChangeImg(event) {
       var input = event.target;
@@ -435,10 +454,10 @@ export default {
       );
       return filter.username;
     },
-    openImg(img){
+    openImg(img) {
       this.dialogImagen = true;
-this.imagenSrc = img;
-    }
+      this.imagenSrc = img;
+    },
   },
 };
 </script>
