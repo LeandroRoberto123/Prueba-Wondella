@@ -21,3 +21,4 @@ Route::get('/publicar', function (){
     dd("dasd");
 });
 Route::post('/guardarPost', [PostController::class, 'guardarPost']);
+Route::post('/mostrarPost', [PostController::class, 'mostrarPost']);

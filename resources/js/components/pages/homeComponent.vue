@@ -3,7 +3,7 @@
     <v-row style="height: 100%" no-gutters>
       <v-col cols="12" sm="12" md="2"> </v-col>
 
-      <v-col cols="12" sm="12" md="8">
+      <v-col cols="12" sm="12" md="8" class="pb-5">
         <v-sheet v-if="$root.accountSession" class="mx-auto" elevation="0">
           <v-slide-group
             v-model="model"
@@ -202,10 +202,100 @@
 
           <!-- {{ preview_img}} -->
         </v-card>
+
+        <v-card
+          elevation="0"
+          class="mt-3"
+          v-for="(post, indexPost) in items_post"
+          :key="indexPost"
+        >
+          <v-card-title class="pb-0">
+            <v-list-item class="pa-0">
+              <v-list-item-avatar color="primary">
+                <v-img :src="avatarUsuario(post.id_usuario)"></v-img>
+              </v-list-item-avatar>
+
+              <v-list-item-content>
+                <v-list-item-title>{{
+                  nameUsuario(post.id_usuario)
+                }}</v-list-item-title>
+
+                <v-list-item-subtitle
+                  >@{{ userNameUsuario(post.id_usuario) }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-card-title>
+          <v-carousel
+            v-if="post.multimedia.length > 0"
+            height="300"
+            hide-delimiters
+            hide-delimiter-background
+            show-arrows-on-hover
+          >
+            <v-carousel-item
+              v-for="(multimedia, i) in post.multimedia"
+              :key="i"
+            >
+              <v-sheet class="black" height="100%">
+                <v-img
+                  position="center center"
+                  @click="openImg('/storage/' + multimedia.route_file)"
+                  v-if="multimedia.type_file == 'imagen'"
+                  :src="'/storage/' + multimedia.route_file"
+                  alt=""
+                />
+                <video
+                  class="d-block m-auto"
+                  height="100%"
+                  v-if="multimedia.type_file == 'video'"
+                  controls
+                >
+                  <source :src="'/storage/' + multimedia.route_file" />
+                  Your browser does not support HTML5 video.
+                </video>
+              </v-sheet>
+            </v-carousel-item>
+          </v-carousel>
+          <v-card-text class="py-2">
+            {{ post.description }}
+          </v-card-text>
+          <v-card-actions class="pt-0">
+            <v-row no-gutters>
+              <v-col>
+                <v-btn text block class="text-capitalize">
+                  <v-icon left> mdi-thumb-up </v-icon> Me gusta
+                </v-btn>
+              </v-col>
+              <v-col>
+                <v-btn text block class="text-capitalize">
+                  <v-icon left> mdi-chat </v-icon> Comentar
+                </v-btn>
+              </v-col>
+              <v-col>
+                <v-btn text block class="text-capitalize">
+                  <v-icon left> mdi-share </v-icon> Compartir
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+        </v-card>
       </v-col>
 
       <v-col cols="12" sm="12" md="2"> </v-col>
     </v-row>
+    <v-dialog
+      v-model="dialogImagen"
+      persistent 
+      max-width="900px"
+      transition="dialog-transition"
+    >
+      <v-img :src="imagenSrc">
+        <v-btn @click="dialogImagen = false; imagenSrc = null" icon class="grey darken-2 ma-1" dark> 
+        <v-icon>mdi-close</v-icon>  
+        </v-btn>
+      </v-img>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -213,6 +303,9 @@
 export default {
   data() {
     return {
+      dialogImagen: false,
+      imagenSrc: '',
+      items_post: [],
       preview_img: [],
       preview_video: [],
       model: null,
@@ -224,8 +317,22 @@ export default {
       },
     };
   },
-
+  created() {
+    this.mostrarPost();
+  },
   methods: {
+    mostrarPost() {
+      axios
+        .post("/mostrarPost", {
+          id_usuario: this.$root.accountSession.id,
+        })
+        .then((res) => {
+          this.items_post = res.data;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
     guardarPost(id) {
       let formData = new FormData();
       if (this.form_data.image_list.length > 0) {
@@ -239,6 +346,7 @@ export default {
         });
       }
       formData.append("description", this.form_data.description);
+      formData.append("id_usuario", this.$root.accountSession.id);
 
       axios
         .post("/guardarPost", formData, {
@@ -309,6 +417,28 @@ export default {
       this.preview_video.splice(index, 1);
       this.form_data.video_list.splice(index, 1);
     },
+    avatarUsuario(id_usuario) {
+      let filter = this.$root.session.find(
+        (session) => session.id == id_usuario
+      );
+      return filter.img;
+    },
+    nameUsuario(id_usuario) {
+      let filter = this.$root.session.find(
+        (session) => session.id == id_usuario
+      );
+      return filter.name;
+    },
+    userNameUsuario(id_usuario) {
+      let filter = this.$root.session.find(
+        (session) => session.id == id_usuario
+      );
+      return filter.username;
+    },
+    openImg(img){
+      this.dialogImagen = true;
+this.imagenSrc = img;
+    }
   },
 };
 </script>

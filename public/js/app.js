@@ -2276,9 +2276,102 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      dialogImagen: false,
+      imagenSrc: '',
+      items_post: [],
       preview_img: [],
       preview_video: [],
       model: null,
@@ -2289,9 +2382,23 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  created: function created() {
+    this.mostrarPost();
+  },
   methods: {
-    guardarPost: function guardarPost(id) {
+    mostrarPost: function mostrarPost() {
       var _this = this;
+
+      axios.post("/mostrarPost", {
+        id_usuario: this.$root.accountSession.id
+      }).then(function (res) {
+        _this.items_post = res.data;
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    },
+    guardarPost: function guardarPost(id) {
+      var _this2 = this;
 
       var formData = new FormData();
 
@@ -2308,12 +2415,13 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       formData.append("description", this.form_data.description);
+      formData.append("id_usuario", this.$root.accountSession.id);
       axios.post("/guardarPost", formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
       }).then(function (res) {
-        _this.limpiarCampos();
+        _this2.limpiarCampos();
 
         console.log(res);
       })["catch"](function (err) {
@@ -2323,7 +2431,7 @@ __webpack_require__.r(__webpack_exports__);
     limpiarCampos: function limpiarCampos() {// this.description = null;
     },
     onFileChangeImg: function onFileChangeImg(event) {
-      var _this2 = this;
+      var _this3 = this;
 
       var input = event.target;
       var count = input.files.length;
@@ -2334,7 +2442,7 @@ __webpack_require__.r(__webpack_exports__);
           var reader = new FileReader();
 
           reader.onload = function (e) {
-            _this2.preview_img.push(e.target.result);
+            _this3.preview_img.push(e.target.result);
           };
 
           this.form_data.image_list.push(input.files[index]);
@@ -2347,7 +2455,7 @@ __webpack_require__.r(__webpack_exports__);
       document.getElementById("fileInputImg").value = "";
     },
     onFileChangeVideo: function onFileChangeVideo(event) {
-      var _this3 = this;
+      var _this4 = this;
 
       var input = event.target;
       var count = input.files.length;
@@ -2358,7 +2466,7 @@ __webpack_require__.r(__webpack_exports__);
           var reader = new FileReader();
 
           reader.onload = function (e) {
-            _this3.preview_video.push(e.target.result);
+            _this4.preview_video.push(e.target.result);
           };
 
           this.form_data.video_list.push(input.files[index]);
@@ -2377,6 +2485,28 @@ __webpack_require__.r(__webpack_exports__);
     deleteFileVideo: function deleteFileVideo(index) {
       this.preview_video.splice(index, 1);
       this.form_data.video_list.splice(index, 1);
+    },
+    avatarUsuario: function avatarUsuario(id_usuario) {
+      var filter = this.$root.session.find(function (session) {
+        return session.id == id_usuario;
+      });
+      return filter.img;
+    },
+    nameUsuario: function nameUsuario(id_usuario) {
+      var filter = this.$root.session.find(function (session) {
+        return session.id == id_usuario;
+      });
+      return filter.name;
+    },
+    userNameUsuario: function userNameUsuario(id_usuario) {
+      var filter = this.$root.session.find(function (session) {
+        return session.id == id_usuario;
+      });
+      return filter.username;
+    },
+    openImg: function openImg(img) {
+      this.dialogImagen = true;
+      this.imagenSrc = img;
     }
   }
 });
@@ -38627,7 +38757,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-col",
-            { attrs: { cols: "12", sm: "12", md: "8" } },
+            { staticClass: "pb-5", attrs: { cols: "12", sm: "12", md: "8" } },
             [
               _vm.$root.accountSession
                 ? _c(
@@ -39184,12 +39314,278 @@ var render = function() {
                   )
                 ],
                 1
-              )
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.items_post, function(post, indexPost) {
+                return _c(
+                  "v-card",
+                  {
+                    key: indexPost,
+                    staticClass: "mt-3",
+                    attrs: { elevation: "0" }
+                  },
+                  [
+                    _c(
+                      "v-card-title",
+                      { staticClass: "pb-0" },
+                      [
+                        _c(
+                          "v-list-item",
+                          { staticClass: "pa-0" },
+                          [
+                            _c(
+                              "v-list-item-avatar",
+                              { attrs: { color: "primary" } },
+                              [
+                                _c("v-img", {
+                                  attrs: {
+                                    src: _vm.avatarUsuario(post.id_usuario)
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-list-item-content",
+                              [
+                                _c("v-list-item-title", [
+                                  _vm._v(
+                                    _vm._s(_vm.nameUsuario(post.id_usuario))
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("v-list-item-subtitle", [
+                                  _vm._v(
+                                    "@" +
+                                      _vm._s(
+                                        _vm.userNameUsuario(post.id_usuario)
+                                      ) +
+                                      "\n              "
+                                  )
+                                ])
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    post.multimedia.length > 0
+                      ? _c(
+                          "v-carousel",
+                          {
+                            attrs: {
+                              height: "300",
+                              "hide-delimiters": "",
+                              "hide-delimiter-background": "",
+                              "show-arrows-on-hover": ""
+                            }
+                          },
+                          _vm._l(post.multimedia, function(multimedia, i) {
+                            return _c(
+                              "v-carousel-item",
+                              { key: i },
+                              [
+                                _c(
+                                  "v-sheet",
+                                  {
+                                    staticClass: "black",
+                                    attrs: { height: "100%" }
+                                  },
+                                  [
+                                    multimedia.type_file == "imagen"
+                                      ? _c("v-img", {
+                                          attrs: {
+                                            position: "center center",
+                                            src:
+                                              "/storage/" +
+                                              multimedia.route_file,
+                                            alt: ""
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.openImg(
+                                                "/storage/" +
+                                                  multimedia.route_file
+                                              )
+                                            }
+                                          }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    multimedia.type_file == "video"
+                                      ? _c(
+                                          "video",
+                                          {
+                                            staticClass: "d-block m-auto",
+                                            attrs: {
+                                              height: "100%",
+                                              controls: ""
+                                            }
+                                          },
+                                          [
+                                            _c("source", {
+                                              attrs: {
+                                                src:
+                                                  "/storage/" +
+                                                  multimedia.route_file
+                                              }
+                                            }),
+                                            _vm._v(
+                                              "\n                Your browser does not support HTML5 video.\n              "
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          }),
+                          1
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("v-card-text", { staticClass: "py-2" }, [
+                      _vm._v(
+                        "\n          " + _vm._s(post.description) + "\n        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-actions",
+                      { staticClass: "pt-0" },
+                      [
+                        _c(
+                          "v-row",
+                          { attrs: { "no-gutters": "" } },
+                          [
+                            _c(
+                              "v-col",
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "text-capitalize",
+                                    attrs: { text: "", block: "" }
+                                  },
+                                  [
+                                    _c("v-icon", { attrs: { left: "" } }, [
+                                      _vm._v(" mdi-thumb-up ")
+                                    ]),
+                                    _vm._v(" Me gusta\n              ")
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-col",
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "text-capitalize",
+                                    attrs: { text: "", block: "" }
+                                  },
+                                  [
+                                    _c("v-icon", { attrs: { left: "" } }, [
+                                      _vm._v(" mdi-chat ")
+                                    ]),
+                                    _vm._v(" Comentar\n              ")
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-col",
+                              [
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "text-capitalize",
+                                    attrs: { text: "", block: "" }
+                                  },
+                                  [
+                                    _c("v-icon", { attrs: { left: "" } }, [
+                                      _vm._v(" mdi-share ")
+                                    ]),
+                                    _vm._v(" Compartir\n              ")
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              })
             ],
-            1
+            2
           ),
           _vm._v(" "),
           _c("v-col", { attrs: { cols: "12", sm: "12", md: "2" } })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: {
+            persistent: "",
+            "max-width": "900px",
+            transition: "dialog-transition"
+          },
+          model: {
+            value: _vm.dialogImagen,
+            callback: function($$v) {
+              _vm.dialogImagen = $$v
+            },
+            expression: "dialogImagen"
+          }
+        },
+        [
+          _c(
+            "v-img",
+            { attrs: { src: _vm.imagenSrc } },
+            [
+              _c(
+                "v-btn",
+                {
+                  staticClass: "grey darken-2 ma-1",
+                  attrs: { icon: "", dark: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.dialogImagen = false
+                      _vm.imagenSrc = null
+                    }
+                  }
+                },
+                [_c("v-icon", [_vm._v("mdi-close")])],
+                1
+              )
+            ],
+            1
+          )
         ],
         1
       )

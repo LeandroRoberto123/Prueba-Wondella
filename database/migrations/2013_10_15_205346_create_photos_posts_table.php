@@ -15,10 +15,10 @@ class CreatePhotosPostsTable extends Migration
     {
         Schema::create('files_posts', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("id_posts");
-            $table->string('title_file', 255)->nullable();
+            $table->bigInteger("id_post");
+            $table->string('title_file')->nullable();
             $table->text('name_file');
-            $table->text('type_file');
+            $table->string('type_file');
             $table->text('route_file');
             $table->timestamps();
         });
