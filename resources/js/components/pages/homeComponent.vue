@@ -259,7 +259,7 @@
               </v-sheet>
             </v-carousel-item>
           </v-carousel>
-          <v-card-text class="py-2">
+          <v-card-text class="py-2" style="white-space: pre-line;">
             {{ post.description }}
           </v-card-text>
           <v-card-actions class="pt-0">
